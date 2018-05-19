@@ -21,9 +21,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.datafrominternet.utilities.NetworkUtils;
 
+import java.io.IOException;
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
@@ -49,14 +51,22 @@ public class MainActivity extends AppCompatActivity {
      * This method retrieves the search text from the EditText, constructs
      * the URL (using {@link NetworkUtils}) for the github repository you'd like to find, displays
      * that URL in a TextView, and finally fires off an AsyncTask to perform the GET request using
-     * our (not yet created) {@link GithubQueryTask}
+     * our (not yet created) {@link NetworkUtils}
      */
     private void makeGithubSearchQuery() {
         String githubQuery = mSearchBoxEditText.getText().toString();
         URL githubSearchUrl = NetworkUtils.buildUrl(githubQuery);
         mUrlDisplayTextView.setText(githubSearchUrl.toString());
-        // TODO (2) Call getResponseFromHttpUrl and display the results in mSearchResultsTextView
-        // TODO (3) Surround the call to getResponseFromHttpUrl with a try / catch block to catch an IOException
+        // TODO (2)(ok) Call getResponseFromHttpUrl and display the results in mSearchResultsTextView
+        try {
+            mSearchResultsTextView.setText(
+                    NetworkUtils.getResponseFromHttpUrl(githubSearchUrl)
+            );
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(MainActivity.this, "And error occurs", Toast.LENGTH_LONG);
+        }
+        // TODO (3)(ok) Surround the call to getResponseFromHttpUrl with a try / catch block to catch an IOException
     }
 
     @Override
