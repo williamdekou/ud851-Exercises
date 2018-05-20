@@ -71,26 +71,26 @@ public class MainActivity extends AppCompatActivity {
         mNumbersList.setAdapter(mAdapter);
     }
 
-    // TODO (2)(ok) Create a menu resource in res/menu/ called main.xml
-    // TODO (3)(ok) Add one item to the menu with an ID of action_refresh
-    // TODO (4)(ok) Set the title of the menu item to "Refresh" using strings.xml
-    // TODO (5)(ok) Set the orderInCategory value to 1 to make sure this item is the first in the list
-    // TODO (6)(ok) Set app:showAsAction to ifRoom to display the menu item in the ActionBar if there is room
+    // COMPLETED (2) Create a menu resource in res/menu/ called main.xml
+    // COMPLETED (3) Add one item to the menu with an ID of action_refresh
+    // COMPLETED (4) Set the title of the menu item to "Refresh" using strings.xml
+    // COMPLETED (5) Set the orderInCategory value to 1 to make sure this item is the first in the list
+    // COMPLETED (6) Set app:showAsAction to ifRoom to display the menu item in the ActionBar if there is room
 
 
-    // TODO (7)(ok) Override onCreateOptionsMenu
-    // TODO (8)(ok) Use getMenuInflater().inflate to inflate the menu
-    // TODO (9)(ok) Return true to display this menu
+    // COMPLETED (7) Override onCreateOptionsMenu
+    // COMPLETED (8) Use getMenuInflater().inflate to inflate the menu
+    // COMPLETED (9) Return true to display this menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
-    // TODO (10)(ok) Override onOptionsItemSelected
-    // TODO (11)(ok) Within this method, get the ID from the MenuItem
-    // TODO (12)(ok) If the ID equals R.id.action_refresh, create and set a new adapter on the RecyclerView and return true
-    // TODO (13)(ok) For now, for all other IDs, return super.onOptionsItemSelected
+    // COMPLETED (10) Override onOptionsItemSelected
+    // COMPLETED (11) Within this method, get the ID from the MenuItem
+    // COMPLETED (12) If the ID equals R.id.action_refresh, create and set a new adapter on the RecyclerView and return true
+    // COMPLETED (13) For now, for all other IDs, return super.onOptionsItemSelected
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
