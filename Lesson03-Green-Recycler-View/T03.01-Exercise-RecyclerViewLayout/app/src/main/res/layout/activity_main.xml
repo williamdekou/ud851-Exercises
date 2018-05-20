@@ -14,15 +14,12 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<FrameLayout
+<!--TODO (2)(ok) Replace the TextView with a RecyclerView with an id of "@+id/rv_numbers"-->
+<!--TODO (3)(ok) Make the width and height of the RecyclerView match_parent-->
+<android.support.v7.widget.RecyclerView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/rv_numbers">
 
-    <!--TODO (2) Replace the TextView with a RecyclerView with an id of "@+id/rv_numbers"-->
-    <!--TODO (3) Make the width and height of the RecyclerView match_parent-->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
-</FrameLayout>
+</android.support.v7.widget.RecyclerView>
