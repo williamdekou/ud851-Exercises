@@ -36,20 +36,20 @@ import android.widget.TextView;
  * If you don't like our puns, we named this Adapter GreenAdapter because its
  * contents are green.
  */
-// TODO (4)(ok) From GreenAdapter, extend RecyclerView.Adapter<NumberViewHolder>
+// COMPLETED (4)(ok) From GreenAdapter, extend RecyclerView.Adapter<NumberViewHolder>
 public class GreenAdapter extends RecyclerView.Adapter<GreenAdapter.NumberViewHolder> {
 
-    // TODO (1)(ok) Add a private int variable called mNumberItems
+    // COMPLETED (1)(ok) Add a private int variable called mNumberItems
     private int mNumberItems;
-    // TODO (2)(ok) Create a constructor for GreenAdapter that accepts an int as a parameter for numberOfItems
+    // COMPLETED (2)(ok) Create a constructor for GreenAdapter that accepts an int as a parameter for numberOfItems
     GreenAdapter(int numberOfItems){
-        // TODO (3)(ok) Store the numberOfItems parameter in mNumberItems
+        // COMPLETED (3)(ok) Store the numberOfItems parameter in mNumberItems
         mNumberItems = numberOfItems;
     }
-    // TODO (5)(ok) Override the onCreateViewHolder method
+    // COMPLETED (5)(ok) Override the onCreateViewHolder method
     @Override
     public NumberViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // TODO (6)(ok) Create and return a new NumberViewHolder within this method
+        // COMPLETED (6)(ok) Create and return a new NumberViewHolder within this method
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
 
         View view = layoutInflater.inflate(R.layout.number_list_item, parent, false);
@@ -57,15 +57,15 @@ public class GreenAdapter extends RecyclerView.Adapter<GreenAdapter.NumberViewHo
     }
 
 
-    // TODO (7)(ok) Override onBindViewHolder
-    // TODO (8)(ok) Within onBindViewHolder, call holder.bind and pass in the position
+    // COMPLETED (7)(ok) Override onBindViewHolder
+    // COMPLETED (8)(ok) Within onBindViewHolder, call holder.bind and pass in the position
 
     @Override
     public void onBindViewHolder(NumberViewHolder holder, int position) {
         holder.bind(position);
     }
 
-    // TODO (9)(ok) Override getItemCount and return the number of items to display
+    // COMPLETED (9)(ok) Override getItemCount and return the number of items to display
     @Override
     public int getItemCount() {
         return mNumberItems;
