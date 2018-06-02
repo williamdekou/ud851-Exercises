@@ -27,6 +27,9 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
 import com.example.android.todolist.database.AppDatabase;
+import com.example.android.todolist.database.TaskEntry;
+
+import java.util.List;
 
 import static android.support.v7.widget.DividerItemDecoration.VERTICAL;
 
@@ -107,13 +110,16 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemC
         super.onResume();
         // COMPLETED (5) Get the diskIO Executor from the instance of AppExecutors and
         // call the diskIO execute method with a new Runnable and implement its run method
-        runOnUiThread(new Runnable() {
+
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                final List<TaskEntry> listOfTasks = mDb.taskDao().loadAllTasks();
+                runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        mAdapter.setTasks(mDb.taskDao().loadAllTasks());
+
+                        mAdapter.setTasks(listOfTasks);
                     }
                 });
             }
