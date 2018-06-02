@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.os.BatteryManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -36,14 +37,12 @@ import com.example.android.background.utilities.PreferenceUtilities;
 public class MainActivity extends AppCompatActivity implements
         SharedPreferences.OnSharedPreferenceChangeListener {
 
+    ChargingBroadcastReceiver mChargingReceiver;
+    IntentFilter mChargingIntentFilter;
     private TextView mWaterCountDisplay;
     private TextView mChargingCountDisplay;
     private ImageView mChargingImageView;
-
     private Toast mToast;
-
-    ChargingBroadcastReceiver mChargingReceiver;
-    IntentFilter mChargingIntentFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,24 +81,25 @@ public class MainActivity extends AppCompatActivity implements
         // https://developer.android.com/training/monitoring-device-state/battery-monitoring.html
         // In Android M and beyond you can simply get a reference to the BatteryManager and call
         // isCharging.
+        boolean isCharging = false;
 
-        // TODO (1) Check if you are on Android M or later, if so...
-            // TODO (2) Get a BatteryManager instance using getSystemService()
-            // TODO (3) Call isCharging on the battery manager and pass the result on to your show
-            // charging method
-
-        // TODO (4) If your user is not on M+, then...
-            // TODO (5) Create a new intent filter with the action ACTION_BATTERY_CHANGED. This is a
-            // sticky broadcast that contains a lot of information about the battery state.
-            // TODO (6) Set a new Intent object equal to what is returned by registerReceiver, passing in null
-            // for the receiver. Pass in your intent filter as well. Passing in null means that you're
-            // getting the current state of a sticky broadcast - the intent returned will contain the
-            // battery information you need.
-            // TODO (7) Get the integer extra BatteryManager.EXTRA_STATUS. Check if it matches
-            // BatteryManager.BATTERY_STATUS_CHARGING or BatteryManager.BATTERY_STATUS_FULL. This means
-            // the battery is currently charging.
-            // TODO (8) Update the UI using your showCharging method
-
+        // COMPLETED (4) If your user is not on M+, then...
+        // COMPLETED (5) Create a new intent filter with the action ACTION_BATTERY_CHANGED. This is a
+        // sticky broadcast that contains a lot of information about the battery state.
+        IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        Intent batteryStatus = this.registerReceiver(null, ifilter);
+        // COMPLETED (6) Set a new Intent object equal to what is returned by registerReceiver, passing in null
+        // for the receiver. Pass in your intent filter as well. Passing in null means that you're
+        // getting the current state of a sticky broadcast - the intent returned will contain the
+        // battery information you need.
+        // COMPLETED (7) Get the integer extra BatteryManager.EXTRA_STATUS. Check if it matches
+        // BatteryManager.BATTERY_STATUS_CHARGING or BatteryManager.BATTERY_STATUS_FULL. This means
+        // the battery is currently charging.
+        int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+        isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
+                status == BatteryManager.BATTERY_STATUS_FULL;
+        // COMPLETED (8) Update the UI using your showCharging method
+        showCharging(isCharging);
         registerReceiver(mChargingReceiver, mChargingIntentFilter);
     }
 
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements
      */
     private void updateWaterCount() {
         int waterCount = PreferenceUtilities.getWaterCount(this);
-        mWaterCountDisplay.setText(waterCount+"");
+        mWaterCountDisplay.setText(waterCount + "");
     }
 
     /**
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements
         startService(incrementWaterCountIntent);
     }
 
-    
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-    private void showCharging(boolean isCharging){
+    private void showCharging(boolean isCharging) {
         if (isCharging) {
             mChargingImageView.setImageResource(R.drawable.ic_power_pink_80px);
 
