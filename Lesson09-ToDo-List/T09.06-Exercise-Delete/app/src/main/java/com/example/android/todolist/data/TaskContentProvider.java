@@ -25,6 +25,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import static com.example.android.todolist.data.TaskContract.TaskEntry.TABLE_NAME;
 
@@ -156,19 +157,25 @@ public class TaskContentProvider extends ContentProvider {
     @Override
     public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
 
-        // TODO (1) Get access to the database and write URI matching code to recognize a single item
+        // COMPLETED (1) Get access to the database and write URI matching code to recognize a single item
         SQLiteDatabase db = mTaskDbHelper.getWritableDatabase();
-        // TODO (2) Write the code to delete a single row of data
+        // COMPLETED (2) Write the code to delete a single row of data
         // [Hint] Use selections to delete an item by its row ID
         switch (sUriMatcher.match(uri)){
             case TASK_WITH_ID:
-                long id = db.delete(TaskContract.TaskEntry.TABLE_NAME, selection, selectionArgs);
-                if (id > 0) this.no
+                String selections = selection == null ? "": selection + " " + TaskContract.TaskEntry._ID + "=" + uri.getPathSegments().get(1);
+                int id = db.delete(TaskContract.TaskEntry.TABLE_NAME, selections, selectionArgs);
+                Log.d(TaskContentProvider.class.getName(), "delete: id" + id + selections);
+                if (id > 0) {
+                    getContext().getContentResolver().notifyChange(uri, null);
+                }
+                return id;
+                default:
+                    throw new UnsupportedOperationException("Not yet implemented");
         }
 
-        // TODO (3) Notify the resolver of a change and return the number of items deleted
+        // COMPLETED (3) Notify the resolver of a change and return the number of items deleted
 
-        throw new UnsupportedOperationException("Not yet implemented");
     }
 
 
