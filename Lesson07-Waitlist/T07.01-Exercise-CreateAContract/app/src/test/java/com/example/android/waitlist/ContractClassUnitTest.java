@@ -1,6 +1,7 @@
 package com.example.android.waitlist;
 
 import android.provider.BaseColumns;
+import android.util.Log;
 
 import com.example.android.waitlist.data.WaitlistContract;
 
