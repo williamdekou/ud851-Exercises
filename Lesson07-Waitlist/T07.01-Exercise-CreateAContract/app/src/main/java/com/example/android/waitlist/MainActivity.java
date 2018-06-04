@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 
@@ -32,14 +33,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    private final String TAG = MainActivity.class.getName();
     /**
      * This method is called when user clicks on the Add to waitlist button
      *
      * @param view The calling view (button)
      */
     public void addToWaitlist(View view) {
-
+        Log.d(TAG, "addToWaitlist: ");
     }
 
 
