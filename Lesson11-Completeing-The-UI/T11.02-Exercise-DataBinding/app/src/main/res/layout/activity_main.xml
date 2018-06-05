@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    //TODO (2) Use <layout> as the root tag for activity_main to generate the ActivityMainBinding
+    //COMPLETED(2) Use <layout> as the root tag for activity_main to generate the ActivityMainBinding
 -->
 <layout
     xmlns:app="http://schemas.android.com/apk/res-auto"
